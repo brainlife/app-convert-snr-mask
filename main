@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -l nodes=1:ppn=2,walltime=0:00:05
+#PBS -N app-convert-snr-mask
+
+mkdir -p mask
+snr=`jq -r '.snr' config.json`
+
+cp -v $snr/cc.nii.gz ./mask/mask.nii.gz
+
+if [ -f ./mask/mask.nii.gz ]; then
+	echo "complete"
+	exit 0;
+else
+	echo "failed"
+	exit 1;
+fi
